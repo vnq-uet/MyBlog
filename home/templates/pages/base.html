@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            background-color:aliceblue;
+        }
+        .clearfix::after {
+            content: "";
+            clear: both;
+            display: table;
+            margin-bottom: 10px;
+        }
+        .box-avatar, .box-nav{
+            width: 12%;
+            float: left;
+        }
+        .avatar {
+            border: 1px solid #ccc;
+        }
+        .avatar img {
+            width: 100%;
+            height: auto;
+        }
+        .box-header, .box-content {
+            width: 80%;
+            float: left;
+            padding: 0 15px;
+        }
+        .box-login {
+            width: 8%;
+            float: left;
+        }
+        .header {
+            text-align: center;
+        }
+        .header p {
+            margin: 0;
+            font-size:4vw;
+        }
+        .nav ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        .nav li {
+            margin: 1px;
+        }
+        .nav a {
+            display: block;
+            color: black;
+            text-decoration: none;
+            padding: 5px;
+            background-color: rgb(231, 231, 231);
+        }
+        .nav a:hover {
+            background-color: rgb(196, 194, 194);
+        }
+        .content p {
+            margin-top: 0;
+            margin-bottom: 5px;
+            font-size: 2vw;
+        }
+        a:hover.title {
+            text-decoration: none;
+        }
+        .post {
+            width: 25%;
+            float: left;
+            padding: 0 6px;
+        }
+        .gallery {
+            border: 1px solid #ccc;
+        }
+        .gallery:hover {
+            border: 1px solid #777;
+        }
+        .gallery a {
+            display: block;
+            color: black;
+        }
+        .gallery img {
+            width: 100%;
+            height: auto;
+        }
+        .gallery h2 a {
+            text-decoration: none;
+        }
+        .gallery p a {
+            text-decoration: none;
+        }
+        .gallery p a:hover {
+            text-decoration: underline;
+        }
+        @media screen and (max-width: 700px) {
+            .post {
+                width: 50%;
+                margin: 6px 0px;
+            }
+        }
+        @media screen and (max-width: 500px) {
+            .post {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="clearfix">
+        <div class="box-avatar">
+            <div class="avatar">
+                <img src="{% static 'image/avatar.jpg' %}" alt="avatar">
+            </div>
+        </div>
+        <div class="box-header">
+            <div class="header">
+                <p>Blog IT</p>
+            </div>
+        </div>
+        <div class="box-login">
+            {% comment %} <a href="{% url 'login' %}">Đăng nhập</a> {% endcomment %}
+            <a href="{% url 'register' %}">Đăng kí</a>
+        </div>
+    </div>
+    <div class="clearfix">
+        <div class="box-nav">
+            <div class="nav">
+                <ul>
+                    <li><a href="/">Thông tin cá nhân</a></li>
+                    <li><a href="{% url 'show_list_post' %}">Bài viết</a></li>
+                    <li><a href="{% url 'contact' %}">Liên hệ</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="box-content">
+            <div class="content clearfix">
+                {% block content %}
+                {% endblock content %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>
