@@ -26,7 +26,7 @@ SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["vnq-blog-0118.herokuapp.com/", "localhost"]
+ALLOWED_HOSTS = ["vnq-blog-0118.herokuapp.com", "localhost"]
 
 
 # Application definition
