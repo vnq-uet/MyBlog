@@ -126,8 +126,13 @@
             </div>
         </div>
         <div class="box-login">
-            {% comment %} <a href="{% url 'login' %}">Đăng nhập</a> {% endcomment %}
-            <a href="{% url 'register' %}">Đăng kí</a>
+            {% if user.username %}
+                <p>Xin chào: {{user.username}}</p>
+                <a href="{% url 'logout' %}">Đăng xuất</a>
+            {% else %}
+                <a href="{% url 'login' %}">Đăng nhập</a>
+                <a href="{% url 'register' %}">Đăng kí</a>
+            {% endif %}
         </div>
     </div>
     <div class="clearfix">
