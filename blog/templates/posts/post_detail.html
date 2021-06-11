@@ -6,4 +6,20 @@
     <h3>Date: {{post.date}}</h3>
     <br>
     <p>{{post.body}}</p>
+    <br><br>
+    {% for comment in post.comments.all %}
+        <h3>{{comment.author.username}}-<span>{{comment.date}}</span></h3>
+        <p>{{comment.body}}</p>
+    {% endfor %}
+    {% if user.username %}
+        <form action="." method="POST">
+            {% csrf_token %}
+            {{form.body}}
+            <br>
+            <input type="submit" value="Gửi">
+        </form>
+    {% else %}
+        <br>
+        <p>Đăng nhập để bình luận!</p>
+    {% endif %}
 {% endblock content %}

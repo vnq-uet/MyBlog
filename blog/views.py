@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from .models import Post
+from .forms import CommentForm
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 def show_list_post(request):
@@ -8,4 +10,10 @@ def show_list_post(request):
 
 def show_detail_post(request, pk):
     post = Post.objects.get(pk=pk)
-    return render(request, 'posts/post_detail.html', {'post':post})
+    form = CommentForm()
+    if request.method == 'POST':
+        form = CommentForm(request.POST, author=request.user, post=post)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('./')
+    return render(request, 'posts/post_detail.html', {'post':post, 'form':form})

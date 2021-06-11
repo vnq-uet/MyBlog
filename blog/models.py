@@ -1,4 +1,5 @@
 from django.db import models
+from django.conf import settings
 
 # Create your models here.
 class Post(models.Model):
@@ -11,3 +12,14 @@ class Post(models.Model):
         ordering = ['-date', 'title']
     def __str__(self) -> str:
         return self.title
+
+class Comment(models.Model):
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="comments")
+    date = models.DateTimeField(auto_now_add=True)
+    body = models.TextField()
+
+    class Meta:
+        ordering = ['-date']
+    def __str__(self) -> str:
+        return f'{self.post.title} Comment'
