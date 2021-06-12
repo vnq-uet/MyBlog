@@ -4,15 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <title>Register</title>
 </head>
 <body>
-    <div>
-        <form action="." method="POST">
+    <div class="container-fluid">
+        <form action="" method="POST">
             {% csrf_token %}
-            {% for k in form %}
-                <p>{{k.errors}}</p>
-            {% endfor %}
+            {% if form.errors %}
+                {% for k in form %}
+                    {% if k.errors %}
+                        <div class="alert alert-danger alert-dismissible fade show">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            {{k.errors}}
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
             <label for="username">Username</label>
             {{form.username}}<br>
             <label for="email">Email</label>
@@ -21,7 +32,7 @@
             {{form.password1}}<br>
             <label for="conformPassword">ConformPassword</label>
             {{form.password2}}<br>
-            <input type="submit" value="Register">
+            <input type="submit" value="Register" class="btn btn-info">
         </form>
     </div>
 </body>
