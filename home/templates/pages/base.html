@@ -50,22 +50,22 @@
             margin: 0;
             font-size:4vw;
         }
-        .nav ul {
+        .my-nav ul {
             list-style-type: none;
             padding: 0;
             margin: 0;
         }
-        .nav li {
+        .my-nav li {
             margin: 1px;
         }
-        .nav a {
+        .my-nav a {
             display: block;
             color: black;
             text-decoration: none;
             padding: 5px;
             background-color: rgb(231, 231, 231);
         }
-        .nav a:hover {
+        .my-nav a:hover {
             background-color: rgb(196, 194, 194);
         }
         .content p {
@@ -118,41 +118,44 @@
     </style>
 </head>
 <body>
-    <div class="clearfix">
-        <div class="box-avatar">
-            <div class="avatar">
-                <img src="{% static 'image/avatar.jpg' %}" alt="avatar">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-2">
+                <div class="avatar">
+                    <img src="{% static 'image/avatar.jpg' %}" alt="avatar">
+                </div>
+            </div>
+            <div class="col-sm-8">
+                <div class="header">
+                    <p>Blog IT</p>
+                </div>
+            </div>
+            <div class="col-sm-2">
+                {% if user.username %}
+                    <p>Xin chào {{user.username}}!</p>
+                    <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Đăng xuất</a>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-outline-secondary">Đăng nhập</a>
+                    <a href="{% url 'register' %}" class="btn btn-outline-secondary">Đăng kí</a>
+                {% endif %}
             </div>
         </div>
-        <div class="box-header">
-            <div class="header">
-                <p>Blog IT</p>
+        <div class="row pt-2">
+            <div class="col-sm-2">
+                <div class="my-nav">
+                    <ul>
+                        <li><a href="/">Thông tin cá nhân</a></li>
+                        <li><a href="{% url 'show_list_post' %}">Bài viết <span class="badge badge-light">{{posts_size}}</span></a></li>
+                        <li><a href="{% url 'show_list_skill' %}">Kĩ năng</a></li>
+                        <li><a href="{% url 'contact' %}">Liên hệ</a></li>
+                    </ul>
+                </div>
             </div>
-        </div>
-        <div class="box-login">
-            {% if user.username %}
-                <p>Xin chào: {{user.username}}</p>
-                <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Đăng xuất</a>
-            {% else %}
-                <a href="{% url 'login' %}" class="btn btn-outline-secondary">Đăng nhập</a>
-                <a href="{% url 'register' %}" class="btn btn-outline-secondary">Đăng kí</a>
-            {% endif %}
-        </div>
-    </div>
-    <div class="clearfix">
-        <div class="box-nav">
-            <div class="nav">
-                <ul>
-                    <li><a href="/">Thông tin cá nhân</a></li>
-                    <li><a href="{% url 'show_list_post' %}">Bài viết</a></li>
-                    <li><a href="{% url 'contact' %}">Liên hệ</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="box-content">
-            <div class="content clearfix">
-                {% block content %}
-                {% endblock content %}
+            <div class="col-sm-10">
+                <div class="content">
+                    {% block content %}
+                    {% endblock content %}
+                </div>
             </div>
         </div>
     </div>
