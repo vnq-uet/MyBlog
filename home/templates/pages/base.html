@@ -73,13 +73,16 @@
             margin-bottom: 5px;
             font-size: 2vw;
         }
+        .content input {
+            margin-left: 6px;
+        }
         a:hover.title {
             text-decoration: none;
         }
         .post {
             width: 25%;
             float: left;
-            padding: 0 6px;
+            padding: 6px 6px;
         }
         .gallery {
             border: 1px solid #ccc;
@@ -116,6 +119,16 @@
             }
         }
     </style>
+    <script>
+        $(document).ready(function(){
+            $("#search").on("keyup", function(){
+                var value = $(this).val().toLowerCase();
+                $(".post a.title").filter(function(){
+                    $(this).parents("div.post").toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                })
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container-fluid">

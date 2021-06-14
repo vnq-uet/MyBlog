@@ -2,6 +2,8 @@
 {% block title %}Post{% endblock title %}
 
 {% block content %}
+    <input type="text" placeholder="Search title..." id="search">
+    <br><br>
     {% for post in posts %}
         <div class="post">
             <div class="gallery">
