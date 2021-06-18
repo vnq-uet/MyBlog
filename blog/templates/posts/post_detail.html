@@ -6,6 +6,13 @@
     <h3>Date: {{post.date}}</h3>
     <br>
     <p>{{post.body}}</p>
+    {% if liked is True %}
+        <a href="{% url 'post_like' post.id %}"><i class="material-icons text-danger">favorite</i></a>
+        <p>{{post.likes}} Likes</p>
+    {% else %}
+        <a href="{% url 'post_like' post.id %}"><i class="material-icons text-danger">favorite_border</i></a>
+        <p>{{post.likes}} Likes</p>
+    {% endif %}
     <br><br>
     {% for comment in post.comments.all %}
         <h3>{{comment.author.username}}-<span>{{comment.date}}</span></h3>

@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
     <title>{% block title %}{% endblock title %}</title>
     <style>
         * {
@@ -73,9 +74,6 @@
             margin-bottom: 5px;
             font-size: 2vw;
         }
-        .content input {
-            margin-left: 6px;
-        }
         a:hover.title {
             text-decoration: none;
         }
@@ -123,8 +121,8 @@
         $(document).ready(function(){
             $("#search").on("keyup", function(){
                 var value = $(this).val().toLowerCase();
-                $(".post a.title").filter(function(){
-                    $(this).parents("div.post").toggle($(this).text().toLowerCase().indexOf(value) > -1);
+                $(".card-title").filter(function(){
+                    $(this).parents(".card").toggle($(this).text().toLowerCase().indexOf(value) > -1);
                 })
             });
         });
