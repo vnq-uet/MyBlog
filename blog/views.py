@@ -20,10 +20,13 @@ def show_detail_post(request, pk):
     post = Post.objects.get(pk=pk)
     form = CommentForm()
     if request.method == 'POST':
-        form = CommentForm(request.POST, author=request.user, post=post)
+        form = CommentForm(request.POST)
         if form.is_valid():
+            comment = form.save(commit=False)
+            comment.author = user
+            comment.post = post
             form.save()
-            return HttpResponseRedirect('./')
+            return HttpResponseRedirect(reverse('show_detail_post', args=[pk]))
     return render(request, 'posts/post_detail.html', {'post': post, 'form': form, 'liked': liked})
 
 @login_required

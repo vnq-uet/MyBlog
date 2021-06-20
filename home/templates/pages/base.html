@@ -125,6 +125,11 @@
                     $(this).parents(".card").toggle($(this).text().toLowerCase().indexOf(value) > -1);
                 })
             });
+            $(".post-like").hover(function(){
+                $(this).children().text("favorite")
+            }, function(){
+                $(this).children().text("favorite_border")
+            })
         });
     </script>
 </head>

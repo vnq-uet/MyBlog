@@ -2,7 +2,7 @@
 {% block title %}Post{% endblock title %}
 
 {% block content %}
-    <input type="text" placeholder="Search title..." id="search">
+    <input class="form-control mb-3 w-25" id="search" placeholder="Search title" aria-label="Search">
     <div class="card-columns">
         {% for post in posts %}
             {% comment %} <div class="post">

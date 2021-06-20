@@ -10,7 +10,7 @@
         <a href="{% url 'post_like' post.id %}"><i class="material-icons text-danger">favorite</i></a>
         <p>{{post.likes}} Likes</p>
     {% else %}
-        <a href="{% url 'post_like' post.id %}"><i class="material-icons text-danger">favorite_border</i></a>
+        <a class="post-like" href="{% url 'post_like' post.id %}"><i class="material-icons text-danger">favorite_border</i></a>
         <p>{{post.likes}} Likes</p>
     {% endif %}
     <br><br>
