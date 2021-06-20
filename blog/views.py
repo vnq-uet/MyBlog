@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from .models import Post, Like
-from .forms import CommentForm
+from .forms import CommentForm, PostForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
@@ -43,4 +43,16 @@ def like(request, post_id):
     post.likes = current_likes
     post.save()
     return HttpResponseRedirect(reverse('show_detail_post', args=[post_id]))
+
+@login_required
+def newpost(request):
+    form = PostForm()
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+    
+    return render(request, 'posts/newpost.html', {'form': form})
+            
         
