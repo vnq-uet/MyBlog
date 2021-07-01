@@ -2,31 +2,33 @@
 {% block title %}{{post.title}}{% endblock title %}
 
 {% block content %}
+  <div class="home_main">
     <h2>{{post.title}}</h2>
     <h3>Date: {{post.date}}</h3>
     <br>
     <p>{{post.body}}</p>
     {% if liked is True %}
-        <a href="{% url 'post_like' post.id %}"><i class="material-icons text-danger">favorite</i></a>
-        <p>{{post.likes}} Likes</p>
+      <a href="{% url 'post_like' post.id %}"><i class="material-icons text-danger">favorite</i></a>
+      <p>{{post.likes}} Likes</p>
     {% else %}
-        <a class="post-like" href="{% url 'post_like' post.id %}"><i class="material-icons text-danger">favorite_border</i></a>
-        <p>{{post.likes}} Likes</p>
+      <a class="post-like" href="{% url 'post_like' post.id %}"><i class="material-icons text-danger">favorite_border</i></a>
+      <p>{{post.likes}} Likes</p>
     {% endif %}
     <br><br>
     {% for comment in post.comments.all %}
-        <h3>{{comment.author.username}}-<span>{{comment.date}}</span></h3>
-        <p>{{comment.body}}</p>
+      <h3>{{comment.author.username}}-<span>{{comment.date}}</span></h3>
+      <p>{{comment.body}}</p>
     {% endfor %}
     {% if user.username %}
-        <form action="." method="POST">
-            {% csrf_token %}
-            {{form.body}}
-            <br>
-            <input type="submit" value="Gửi" class="btn btn-info">
-        </form>
-    {% else %}
+      <form action="." method="POST">
+        {% csrf_token %}
+        {{form.body}}
         <br>
-        <p>Đăng nhập để bình luận!</p>
+        <input type="submit" value="Gửi" class="btn btn-info">
+      </form>
+    {% else %}
+      <br>
+      <p>Đăng nhập để bình luận!</p>
     {% endif %}
+  </div>
 {% endblock content %}

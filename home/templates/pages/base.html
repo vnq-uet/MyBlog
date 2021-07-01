@@ -1,180 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    {% load static %}
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
-    <title>{% block title %}{% endblock title %}</title>
-    <style>
-        * {
-            box-sizing: border-box;
-        }
-        body {
-            background-color:aliceblue;
-        }
-        .clearfix::after {
-            content: "";
-            clear: both;
-            display: table;
-            margin-bottom: 10px;
-        }
-        .box-avatar, .box-nav{
-            width: 12%;
-            float: left;
-        }
-        .avatar {
-            border: 1px solid #ccc;
-        }
-        .avatar img {
-            width: 100%;
-            height: auto;
-        }
-        .box-header, .box-content {
-            width: 80%;
-            float: left;
-            padding: 0 15px;
-        }
-        .box-login {
-            width: 8%;
-            float: left;
-        }
-        .header {
-            text-align: center;
-        }
-        .header p {
-            margin: 0;
-            font-size:4vw;
-        }
-        .my-nav ul {
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-        .my-nav li {
-            margin: 1px;
-        }
-        .my-nav a {
-            display: block;
-            color: black;
-            text-decoration: none;
-            padding: 5px;
-            background-color: rgb(231, 231, 231);
-        }
-        .my-nav a:hover {
-            background-color: rgb(196, 194, 194);
-        }
-        .content p {
-            margin-top: 0;
-            margin-bottom: 5px;
-            font-size: 2vw;
-        }
-        a:hover.title {
-            text-decoration: none;
-        }
-        .post {
-            width: 25%;
-            float: left;
-            padding: 6px 6px;
-        }
-        .gallery {
-            border: 1px solid #ccc;
-        }
-        .gallery:hover {
-            border: 1px solid #777;
-        }
-        .gallery a {
-            display: block;
-            color: black;
-        }
-        .gallery img {
-            width: 100%;
-            height: auto;
-        }
-        .gallery h2 a {
-            text-decoration: none;
-        }
-        .gallery p a {
-            text-decoration: none;
-        }
-        .gallery p a:hover {
-            text-decoration: underline;
-        }
-        @media screen and (max-width: 700px) {
-            .post {
-                width: 50%;
-                margin: 6px 0px;
-            }
-        }
-        @media screen and (max-width: 500px) {
-            .post {
-                width: 100%;
-            }
-        }
-    </style>
-    <script>
-        $(document).ready(function(){
-            $("#search").on("keyup", function(){
-                var value = $(this).val().toLowerCase();
-                $(".card-title").filter(function(){
-                    $(this).parents(".card").toggle($(this).text().toLowerCase().indexOf(value) > -1);
-                })
-            });
-            $(".post-like").hover(function(){
-                $(this).children().text("favorite")
-            }, function(){
-                $(this).children().text("favorite_border")
-            })
-        });
-    </script>
+  {% load static %}
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+  <title>{% block title %}{% endblock title %}</title>
+  <script src="{% static 'js/app.js' %}"></script>
 </head>
 <body>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-sm-2">
-                <div class="avatar">
-                    <img src="{% static 'image/avatar.jpg' %}" alt="avatar">
-                </div>
-            </div>
-            <div class="col-sm-8">
-                <div class="header">
-                    <p>Blog IT</p>
-                </div>
-            </div>
-            <div class="col-sm-2">
-                {% if user.username %}
-                    <p>Xin chào {{user.username}}!</p>
-                    <a href="{% url 'logout' %}" class="btn btn-outline-secondary">Đăng xuất</a>
-                {% else %}
-                    <a href="{% url 'login' %}" class="btn btn-outline-secondary">Đăng nhập</a>
-                    <a href="{% url 'register' %}" class="btn btn-outline-secondary">Đăng kí</a>
-                {% endif %}
-            </div>
-        </div>
-        <div class="row pt-2">
-            <div class="col-sm-2">
-                <div class="my-nav">
-                    <ul>
-                        <li><a href="/">Thông tin cá nhân</a></li>
-                        <li><a href="{% url 'show_list_post' %}">Bài viết <span class="badge badge-light">{{posts_size}}</span></a></li>
-                        <li><a href="{% url 'show_list_skill' %}">Kĩ năng</a></li>
-                        <li><a href="{% url 'contact' %}">Liên hệ</a></li>
-                        <li><a href="{% url 'new_post' %}">Tạo bài viết mới</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="col-sm-10">
-                <div class="content">
-                    {% block content %}
-                    {% endblock content %}
-                </div>
-            </div>
-        </div>
+  <div class="header">
+    <div class="header_content">
+      <h1>Blog IT</h1>
     </div>
+    <div class="user">
+      {% if user.username %}
+        <p>Xin chào {{user.username}}!</p>
+      {% endif %}
+    </div>
+  </div>
+  <div class="navbar">
+    <a href="/">Thông tin cá nhân</a>
+    <a href="{% url 'show_list_post' %}">Bài viết <span class="badge badge-light">{{posts_size}}</span></a>
+    <a href="{% url 'show_list_skill' %}">Kĩ năng</a>
+    <a href="{% url 'contact' %}">Liên hệ</a>
+    <a href="{% url 'new_post' %}">Tạo bài viết mới</a>
+    <input type="text" placeholder="Search">
+    {% if user.username %}
+      <a href="{% url 'logout' %}">Đăng xuất</a>
+    {% else %}
+      <a href="{% url 'login' %}">Đăng nhập</a>
+      <a href="{% url 'register' %}">Đăng kí</a>
+    {% endif %} 
+  </div>
+  <div class="row">
+    <div class="side">
+      <h2>About Me</h2>
+      <h5>Photo of me:</h5>
+      <img src="{% static 'image/avatar.jpg' %}" alt="avatar">
+    </div>
+    <div class="main">
+      {% block content %}
+      {% endblock content %}
+    </div>
+  </div>
+  <div class="footer">
+    <h2>Footer</h2>
+  </div>
 </body>
 </html>
